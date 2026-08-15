@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Material 3 baseline tonal palette (purple seed) */
+    --md-primary: #6750A4;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #EADDFF;
+    --md-on-primary-container: #21005D;
+    --md-secondary: #625B71;
+    --md-surface: #FFFBFE;
+    --md-surface-container: #F3EDF7;
+    --md-surface-container-high: #ECE6F0;
+    --md-on-surface: #1C1B1F;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-error: #B3261E;
+    --md-elevation-1: 0 1px 2px rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.15);
+    --md-elevation-3: 0 4px 8px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.30);
+    --shape-full: 100px;
+    --shape-lg: 28px;
+    --shape-md: 12px;
+    --shape-sm: 4px;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(180deg, var(--md-surface-container) 0%, var(--md-surface) 45%);
+    font-family:'Roboto','Google Sans Text',sans-serif;
+    color:var(--md-on-surface);
+  }
+
+  .login-card{
+    width:100%;
+    max-width:400px;
+    background:var(--md-surface);
+    border-radius:var(--shape-lg);
+    box-shadow:var(--md-elevation-3);
+    padding:40px 32px 32px;
+    margin:16px;
+  }
+
+  .avatar-wrap{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+  }
+
+  .avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:var(--md-primary-container);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: inset 0 0 0 1px rgba(33,0,93,0.06);
+  }
+
+  .avatar svg{
+    width:44px;
+    height:44px;
+    fill:var(--md-on-primary-container);
+  }
+
+  h1{
+    font-size:24px;
+    font-weight:400;
+    text-align:center;
+    margin:0 0 4px;
+    letter-spacing:0;
+  }
+
+  .subtitle{
+    font-size:14px;
+    color:var(--md-on-surface-variant);
+    text-align:center;
+    margin:0 0 28px;
+  }
+
+  /* Material 3 filled text field */
+  .field{
+    position:relative;
+    margin-bottom:20px;
+  }
+
+  .field input{
+    width:100%;
+    height:56px;
+    padding:20px 16px 6px;
+    font-size:16px;
+    font-family:inherit;
+    color:var(--md-on-surface);
+    background:var(--md-surface-container-high);
+    border:none;
+    border-bottom:1px solid var(--md-on-surface-variant);
+    border-radius:var(--shape-sm) var(--shape-sm) 0 0;
+    outline:none;
+    transition:border-bottom-color .15s ease, border-bottom-width .15s ease, padding-bottom .15s ease;
+  }
+
+  .field input:focus{
+    border-bottom:2px solid var(--md-primary);
+    padding-bottom:5px;
+  }
+
+  .field label{
+    position:absolute;
+    left:16px;
+    top:18px;
+    font-size:16px;
+    color:var(--md-on-surface-variant);
+    pointer-events:none;
+    transition:all .15s ease;
+    background:transparent;
+  }
+
+  .field input:focus + label,
+  .field input:not(:placeholder-shown) + label{
+    top:8px;
+    font-size:12px;
+    color:var(--md-primary);
+  }
+
+  .field input::placeholder{ color:transparent; }
+
+  .field .icon{
+    position:absolute;
+    right:14px;
+    top:16px;
+    width:22px;
+    height:22px;
+    fill:var(--md-on-surface-variant);
+  }
+
+  .row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:28px;
+  }
+
+  /* Material 3 checkbox */
+  .checkbox-wrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  .checkbox-wrap input[type="checkbox"]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:18px;
+    height:18px;
+    border:2px solid var(--md-outline);
+    border-radius:2px;
+    cursor:pointer;
+    position:relative;
+    transition:background .15s ease, border-color .15s ease;
+  }
+
+  .checkbox-wrap input[type="checkbox"]:checked{
+    background:var(--md-primary);
+    border-color:var(--md-primary);
+  }
+
+  .checkbox-wrap input[type="checkbox"]:checked::after{
+    content:"";
+    position:absolute;
+    left:4px;
+    top:0px;
+    width:5px;
+    height:10px;
+    border:solid white;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+
+  .checkbox-wrap span{
+    font-size:14px;
+    color:var(--md-on-surface);
+  }
+
+  .forgot-link{
+    font-size:14px;
+    color:var(--md-primary);
+    text-decoration:none;
+    font-weight:500;
+  }
+
+  .forgot-link:hover{ text-decoration:underline; }
+
+  .actions{
+    display:flex;
+    gap:12px;
+    justify-content:flex-end;
+    align-items:center;
+  }
+
+  /* Material 3 buttons */
+  .btn{
+    font-family:inherit;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.1px;
+    border-radius:var(--shape-full);
+    padding:10px 24px;
+    height:40px;
+    border:none;
+    cursor:pointer;
+    transition:box-shadow .15s ease, background .15s ease;
+  }
+
+  .btn-text{
+    background:transparent;
+    color:var(--md-primary);
+    padding:10px 12px;
+  }
+
+  .btn-text:hover{
+    background:rgba(103,80,164,0.08);
+  }
+
+  .btn-filled{
+    background:var(--md-primary);
+    color:var(--md-on-primary);
+    box-shadow:var(--md-elevation-1);
+  }
+
+  .btn-filled:hover{
+    box-shadow:var(--md-elevation-3);
+    filter:brightness(1.04);
+  }
+
+  .btn-filled:active{
+    filter:brightness(0.96);
+  }
+
+  .btn:focus-visible{
+    outline:2px solid var(--md-primary);
+    outline-offset:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<form class="login-card" autocomplete="off">
+  <div class="avatar-wrap">
+    <div class="avatar">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.3 0-9.8 1.6-9.8 4.9v2.4h19.6v-2.4c0-3.3-6.5-4.9-9.8-4.9z"/></svg>
+    </div>
+  </div>
+
+  <h1>Welcome back</h1>
+  <p class="subtitle">Sign in to continue</p>
+
+  <div class="field">
+    <input type="text" id="username" name="username" placeholder=" " required>
+    <label for="username">Username</label>
+  </div>
+
+  <div class="field">
+    <input type="password" id="password" name="password" placeholder=" " required>
+    <label for="password">Password</label>
+    <svg class="icon" viewBox="0 0 24 24"><path d="M12 17a2 2 0 002-2 2 2 0 00-2-2 2 2 0 00-2 2 2 2 0 002 2zm6-9a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h1V6a5 5 0 0110 0v2h1zm-6-4a3 3 0 00-3 3v2h6V6a3 3 0 00-3-3z"/></svg>
+  </div>
+
+  <div class="row">
+    <label class="checkbox-wrap">
+      <input type="checkbox" id="remember" name="remember">
+      <span>Remember me</span>
+    </label>
+    <a href="#" class="forgot-link">Forgot password?</a>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn btn-text" id="cancelBtn">Cancel</button>
+    <button type="submit" class="btn btn-filled" id="loginBtn">Login</button>
+  </div>
+</form>
+
+<script>
+  document.getElementById('cancelBtn').addEventListener('click', function(){
+    document.querySelector('.login-card').reset();
+  });
+
+  document.querySelector('.login-card').addEventListener('submit', function(e){
+    e.preventDefault();
+    // Hook up real authentication logic here.
+    console.log('Login submitted');
+  });
+</script>
+
+</body>
+</html>
